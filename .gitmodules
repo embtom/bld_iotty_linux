@@ -1,0 +1,15 @@
+[submodule "lib_convention"]
+	path = lib_convention
+	url = https://github.com/tom3333/lib_convention.git
+[submodule "lib_list"]
+	path = lib_list
+	url = https://github.com/tom3333/lib_list.git
+[submodule "lib_log"]
+	path = lib_log
+	url = https://github.com/tom3333/lib_log.git
+[submodule "lib_mini_printf"]
+	path = lib_mini_printf
+	url = https://github.com/tom3333/mini-printf.git
+[submodule "lib_tty_portmux"]
+	path = lib_tty_portmux
+	url = https://github.com/tom3333/lib_tty_portmux.git
