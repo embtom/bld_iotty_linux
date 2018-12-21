@@ -82,11 +82,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${MY_PUBLIC_HEAD
 include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME}
     EXPORT iotty-targets
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/embtom
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/embtom
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/embtom/iotty
 )
-install(FILES iottyConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/iotty)
+install(FILES cmake/iottyConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/iotty)
 
 install(EXPORT iotty-targets
   FILE
@@ -103,7 +103,7 @@ install(EXPORT iotty-targets
 ######################################################
 
 set(CPACK_GENERATOR "DEB")
-SET(CPACK_PACKAGE_NAME "embtom-iotty")
+SET(CPACK_PACKAGE_NAME "embtom-iotty-${CMAKE_BUILD_TYPE}")
 set(CPACK_PACKAGE_VERSION_MAJOR "0")
 set(CPACK_PACKAGE_VERSION_MINOR "1")
 set(CPACK_PACKAGE_VERSION_PATCH "0")
