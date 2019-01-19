@@ -13,3 +13,12 @@
 [submodule "lib_tty_portmux"]
 	path = lib_tty_portmux
 	url = https://github.com/tom3333/lib_tty_portmux.git
+[submodule "lib_console"]
+	path = lib_console
+	url = https://github.com/tom3333/lib_console.git
+[submodule "lib_serial"]
+	path = lib_serial
+	url = https://github.com/tom3333/lib_serial.git
+[submodule "lib_thread"]
+	path = lib_thread
+	url = https://github.com/tom3333/lib_thread.git
