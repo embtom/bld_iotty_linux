@@ -38,38 +38,49 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/iotty_version.c.in" "${CMAKE_CURRENT
 ######################################################
 SET(CMAKE_POSITION_INDEPENDENT_CODE ON)
 SET(LIB_LIST_LOCK lock_cas)
+SET(LIB_SERIAL_ARCHITECTURE linux)
+SET(LIB_THREAD_ARCHITECTURE posix)
 
 ######################################################
 #Subdirectoris 
 ######################################################
 add_subdirectory(lib_convention)
-add_subdirectory(lib_tty_portmux)
 add_subdirectory(lib_list)
 add_subdirectory(lib_log)
 add_subdirectory(lib_mini_printf)
+add_subdirectory(lib_serial)
+add_subdirectory(lib_thread)
+add_subdirectory(lib_console)
+add_subdirectory(lib_tty_portmux)
 
 ######################################################
 #Setup subprojects
 ######################################################
 
-#LIB_TTY_PORTMUX get header
-get_property(HEADERS_LIB_TTY_PORTMUX TARGET lib_tty_portmux PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+#LIB_TTYPORTMUX get header
+get_property(HEADERS_LIB_TTYPORTMUX TARGET lib_ttyportmux PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
 get_property(HEADERS_LIB_LOG TARGET lib_log PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+get_property(HEADERS_LIB_CONSOLE TARGET lib_console PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+get_property(HEADERS_LIB_SERIAL TARGET lib_serial PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
 
-SET(MY_PUBLIC_HEADERS_DIR ${HEADERS_LIB_TTY_PORTMUX} ${HEADERS_LIB_LOG} ./)
+SET(MY_PUBLIC_HEADERS_DIR ${HEADERS_LIB_TTYPORTMUX} ${HEADERS_LIB_LOG} ${HEADERS_LIB_CONSOLE} ${HEADERS_LIB_SERIAL})
+SET(PUBLISH_HEADERS_TOPDIR iotty_version.h)
 
 FOREACH(item ${MY_PUBLIC_HEADERS_DIR})
   file(GLOB item_headers "${item}/*.h")
-  LIST(APPEND MY_PUBLIC_HEADERS ${item_headers})
-ENDFOREACH(item ${HEADERS_OS_BASE_SUB_LIBS})
+  LIST(APPEND PUBLISH_HEADERS_TOPDIR ${item_headers})
+ENDFOREACH()
 
-message(STATUS "${MY_PUBLIC_HEADERS}")
+FOREACH(item ${MY_PUBLIC_HEADERS_DIR})
+  file(GLOB_RECURSE item_headers "${item}/*/*.h")
+  LIST(APPEND PUBLISH_HEADERS_SUBDIRS ${item_headers})
+ENDFOREACH()
 
 ######################################################
 #Build target settings
 ######################################################
 add_library(${PROJECT_NAME} SHARED ${CMAKE_CURRENT_BINARY_DIR}/iotty_version.c ) 
-target_link_libraries(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive" lib_tty_portmux lib_log "-Wl,--no-whole-archive")
+target_link_libraries(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive" lib_ttyportmux lib_log lib_console "-Wl,--no-whole-archive")
 target_include_directories(${PROJECT_NAME} PRIVATE ./)
 target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:include/embtom/iotty> )
 #target_compile_definitions(${PROJECT_NAME} PUBLIC ${COMPILE_DEF_LIB_LIST})
@@ -77,7 +88,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:include/em
 ######################################################
 #Install
 ######################################################
-set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${MY_PUBLIC_HEADERS}")
+
+message(STATUS "${PUBLISH_HEADERS_SUBDIRS}")
+
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${PUBLISH_HEADERS_TOPDIR}")
 
 include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME}
@@ -111,6 +125,6 @@ set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 set(CPACK_PACKAGE_DESCRIPTION "EMBTOM::iotty")
 set(CPACK_PACKAGE_CONTACT "Thomas Willetal t.willetal@googlemail.com")
 set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-#set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/Debian/postinst")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "GIT_SHA1: ${GIT_SHA1}") 
 
 include(CPack)
