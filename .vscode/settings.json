@@ -1,3 +1,9 @@
-{
+{    
+    "files.associations": {
+        "*.c++": "cpp"
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "cmake.buildDirectory": "${workspaceRoot}/build/${buildType}",
+    "cmake.generator": "Unix Makefiles",
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools"
 }
