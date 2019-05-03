@@ -1,24 +1,32 @@
 [submodule "lib_convention"]
 	path = lib_convention
-	url = https://github.com/tom3333/lib_convention.git
+	url = https://github.com/embtom/lib_convention.git
+	branch = master
 [submodule "lib_list"]
 	path = lib_list
-	url = https://github.com/tom3333/lib_list.git
+	url = https://github.com/embtom/lib_list.git
+	branch = master
 [submodule "lib_log"]
 	path = lib_log
-	url = https://github.com/tom3333/lib_log.git
+	url = https://github.com/embtom/lib_log.git
+	branch = master
 [submodule "lib_mini_printf"]
 	path = lib_mini_printf
-	url = https://github.com/tom3333/mini-printf.git
+	url = https://github.com/embtom/mini-printf.git
+	branch = master
 [submodule "lib_tty_portmux"]
 	path = lib_tty_portmux
-	url = https://github.com/tom3333/lib_tty_portmux.git
+	url = https://github.com/embtom/lib_tty_portmux.git
+	branch = master
 [submodule "lib_console"]
 	path = lib_console
-	url = https://github.com/tom3333/lib_console.git
+	url = https://github.com/embtom/lib_console.git
+	branch = master
 [submodule "lib_serial"]
 	path = lib_serial
-	url = https://github.com/tom3333/lib_serial.git
+	url = https://github.com/embtom/lib_serial.git
+	branch = master
 [submodule "lib_thread"]
 	path = lib_thread
-	url = https://github.com/tom3333/lib_thread.git
+	url = https://github.com/embtom/lib_thread.git
+	branch = master
